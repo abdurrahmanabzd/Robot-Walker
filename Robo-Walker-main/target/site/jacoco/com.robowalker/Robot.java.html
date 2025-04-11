@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Robot.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RoboWalker</a> &gt; <a href="index.source.html" class="el_package">com.robowalker</a> &gt; <span class="el_source">Robot.java</span></div><h1>Robot.java</h1><pre class="source lang-java linenums">package com.robowalker;
+
+public class Robot {
+    public int[][] room;
+    public int currentPositionX;
+    public int currentPositionY;
+    public int size;
+    public String faceDirection;
+    public String pen;
+
+<span class="fc" id="L11">    public Robot(int size) {</span>
+<span class="fc" id="L12">        this.room = new int[size][size];</span>
+<span class="fc" id="L13">        this.size = size;</span>
+<span class="fc" id="L14">        this.currentPositionX = 0;</span>
+<span class="fc" id="L15">        this.currentPositionY = 0;</span>
+<span class="fc" id="L16">        this.faceDirection = &quot;north&quot;;</span>
+<span class="fc" id="L17">        this.pen = &quot;up&quot;;</span>
+<span class="fc" id="L18">    }</span>
+
+    public void setCurrentPositionY(int currentPositionY) {
+<span class="fc bfc" id="L21" title="All 4 branches covered.">        if (currentPositionY &lt; this.size &amp;&amp; currentPositionY &gt;= 0) {</span>
+<span class="fc" id="L22">            this.currentPositionY = currentPositionY;</span>
+        } else {
+<span class="fc" id="L24">            throw new ArrayIndexOutOfBoundsException();</span>
+        }
+<span class="fc" id="L26">    }</span>
+
+    public void setFaceDirection(String faceDirection) {
+<span class="fc" id="L29">        this.faceDirection = faceDirection;</span>
+<span class="fc" id="L30">    }</span>
+
+    public void setCurrentPositionX(int currentPositionX) {
+<span class="pc bpc" id="L33" title="1 of 4 branches missed.">        if (currentPositionX &lt; this.size &amp;&amp; currentPositionX &gt;= 0) {</span>
+<span class="fc" id="L34">            this.currentPositionX = currentPositionX;</span>
+        } else {
+<span class="fc" id="L36">            throw new ArrayIndexOutOfBoundsException();</span>
+        }
+<span class="fc" id="L38">    }</span>
+
+    public void setValueAtCurrentPosition() {
+<span class="fc" id="L41">        this.room[this.currentPositionX][this.currentPositionY] = 1;</span>
+<span class="fc" id="L42">    }</span>
+
+    public void move(int steps) {
+        try {
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (this.pen == &quot;down&quot;) {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                if (this.room[this.currentPositionX][this.currentPositionY] == 0) {</span>
+<span class="fc" id="L48">                    this.setValueAtCurrentPosition();</span>
+<span class="fc" id="L49">                    steps = steps - 1;                    // to avoid double counting</span>
+//                  steps = steps;
+                }
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                for (int i = 0; i &lt; steps; i = i + 1) {</span>
+<span class="pc bpc" id="L53" title="1 of 5 branches missed.">                    switch (this.faceDirection) {</span>
+                        case &quot;north&quot;:
+<span class="fc" id="L55">                            this.setCurrentPositionY(this.currentPositionY + 1);</span>
+<span class="fc" id="L56">                            this.setValueAtCurrentPosition();</span>
+<span class="fc" id="L57">                            break;</span>
+                        case &quot;south&quot;:
+<span class="fc" id="L59">                            this.setCurrentPositionY(this.currentPositionY - 1);</span>
+<span class="fc" id="L60">                            this.setValueAtCurrentPosition();</span>
+<span class="fc" id="L61">                            break;</span>
+                        case &quot;east&quot;:
+<span class="fc" id="L63">                            this.setCurrentPositionX(this.currentPositionX + 1);</span>
+<span class="fc" id="L64">                            this.setValueAtCurrentPosition();</span>
+<span class="fc" id="L65">                            break;</span>
+
+                        case &quot;west&quot;:
+<span class="fc" id="L68">                            this.setCurrentPositionX(this.currentPositionX - 1);</span>
+<span class="fc" id="L69">                            this.setValueAtCurrentPosition();</span>
+                            break;
+                    }
+                }
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">            } else if (this.pen == &quot;up&quot;) {</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">                if (this.room[this.currentPositionX][this.currentPositionY] == 0) {</span>
+<span class="fc" id="L75">                    steps = steps - 1;                    // to avoid double counting</span>
+//                  steps = steps;
+                }
+<span class="fc bfc" id="L78" title="All 2 branches covered.">                for (int i = 0; i &lt; steps; i = i + 1) {</span>
+<span class="pc bpc" id="L79" title="1 of 5 branches missed.">                    switch (this.faceDirection) {</span>
+                        case &quot;north&quot;:
+<span class="fc" id="L81">                            this.setCurrentPositionY(this.currentPositionY + 1);</span>
+<span class="fc" id="L82">                            break;</span>
+                        case &quot;south&quot;:
+<span class="fc" id="L84">                            this.setCurrentPositionY(this.currentPositionY - 1);</span>
+<span class="fc" id="L85">                            break;</span>
+                        case &quot;east&quot;:
+<span class="fc" id="L87">                            this.setCurrentPositionX(this.currentPositionX + 1);</span>
+<span class="fc" id="L88">                            break;</span>
+                        case &quot;west&quot;:
+<span class="fc" id="L90">                            this.setCurrentPositionX(this.currentPositionX - 1);</span>
+                            break;
+                    }
+                }
+            }
+<span class="fc" id="L95">        } catch (ArrayIndexOutOfBoundsException err) {</span>
+<span class="fc" id="L96">            System.out.println(&quot;moved to edge of room could not go to the size specified due to size constraint&quot;);</span>
+<span class="fc" id="L97">        }</span>
+<span class="fc" id="L98">    }</span>
+
+    public void changePenStatus(String status) {
+<span class="fc" id="L101">        this.pen = status;</span>
+<span class="fc" id="L102">    }</span>
+
+    public String printCoordinates() {
+<span class="fc" id="L105">        return &quot;Position : &quot; + this.currentPositionX + &quot;, &quot; + this.currentPositionY + &quot; Pen: &quot; + this.pen.toLowerCase()</span>
+<span class="fc" id="L106">                + &quot; Face: &quot; + this.faceDirection.toLowerCase();</span>
+    }
+
+    public void printMatrix() {
+<span class="fc" id="L110">        int[][] rotatedArray = new int[this.size][this.size];</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        for (int i = 0; i &lt; this.size; i = i + 1) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            for (int j = 0; j &lt; this.size; j = j + 1) {</span>
+<span class="fc" id="L113">                rotatedArray[i][j] = this.room[j][this.size - i - 1];</span>
+            }
+        }
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i = i + 1) {</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">            for (int j = 0; j &lt; size; j = j + 1) {</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">                if (rotatedArray[i][j] &gt; 0) {</span>
+<span class="fc" id="L119">                    System.out.print(&quot; * &quot;);</span>
+                } else {
+<span class="fc" id="L121">                    System.out.print(&quot; 0 &quot;);</span>
+                }
+            }
+<span class="fc" id="L124">            System.out.println();</span>
+        }
+<span class="fc" id="L126">    }</span>
+
+    public void rotate(String direction) {
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (direction == &quot;left&quot;) {</span>
+<span class="pc bpc" id="L130" title="1 of 5 branches missed.">            switch (this.faceDirection) {</span>
+                case &quot;north&quot;:
+<span class="fc" id="L132">                    this.faceDirection = &quot;west&quot;;</span>
+<span class="fc" id="L133">                    break;</span>
+                case &quot;south&quot;:
+<span class="fc" id="L135">                    this.faceDirection = &quot;east&quot;;</span>
+<span class="fc" id="L136">                    break;</span>
+                case &quot;east&quot;:
+<span class="fc" id="L138">                    this.faceDirection = &quot;north&quot;;</span>
+<span class="fc" id="L139">                    break;</span>
+                case &quot;west&quot;:
+<span class="fc" id="L141">                    this.faceDirection = &quot;south&quot;;</span>
+                    break;
+<span class="fc" id="L143">            }</span>
+        } else {
+<span class="pc bpc" id="L145" title="1 of 5 branches missed.">            switch (this.faceDirection) {</span>
+                case &quot;north&quot;:
+<span class="fc" id="L147">                    this.faceDirection = &quot;east&quot;;</span>
+<span class="fc" id="L148">                    break;</span>
+                case &quot;south&quot;:
+<span class="fc" id="L150">                    this.faceDirection = &quot;west&quot;;</span>
+<span class="fc" id="L151">                    break;</span>
+                case &quot;east&quot;:
+<span class="fc" id="L153">                    this.faceDirection = &quot;south&quot;;</span>
+<span class="fc" id="L154">                    break;</span>
+                case &quot;west&quot;:
+<span class="fc" id="L156">                    this.faceDirection = &quot;north&quot;;</span>
+                    break;
+            }
+        }
+<span class="fc" id="L160">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
